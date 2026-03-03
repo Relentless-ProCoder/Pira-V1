@@ -35,8 +35,8 @@
 ```json
 {
   "_id": "ObjectId",
-  "name": "Shivam Javiya",
-  "email": "shivam@example.com",
+  "name": "Pranay Harishchandra",
+  "email": "pranay@example.com",
   "password": "hashed_password",
   "profilePicture": "image_url",
   "isOnline": true,
