@@ -84,74 +84,66 @@ const AppLayout = () => (WrappedComponent) => {
       [ONLINE_USERS]: onlineUsersListener,
     };
     useSocketEvents(socket, eventHandlers);
-    return (
-      <>
-        <Title />
-        <Header />
-        <DeleteChatMenu
-          dispatch={dispatch}
-          deleteMenuAnchor={deleteMenuAnchor}
+return (
+  <>
+    <Title />
+    <Header />
+    <DeleteChatMenu
+      dispatch={dispatch}
+      deleteMenuAnchor={deleteMenuAnchor}
+      chatId={chatId}
+    />
+
+    {isLoading ? (
+      <Skeleton />
+    ) : (
+      <Drawer open={isMobile} onClose={handleMobileClose}>
+        <ChatList
+          w="70vw"
+          chats={data?.chats}
           chatId={chatId}
+          handleDeleteChat={handleDeleteChat}
+          newMessagesAlert={newMessagesAlert}
         />
+      </Drawer>
+    )}
+
+    <Grid
+      container
+      height={"calc(100vh - 4rem)"}
+      sx={{ overflowY: "hidden" }}
+    >
+      {/* Left Sidebar */}
+      <Grid
+        item
+        sm={4}
+        md={3}
+        height={"100%"}
+        sx={{
+          display: { xs: "none", sm: "block" },
+          backgroundColor: "#E5E4E2",
+        }}
+      >
         {isLoading ? (
           <Skeleton />
         ) : (
-          <Drawer open={isMobile} onClose={handleMobileClose}>
-            <ChatList
-              w="70vw"
-              chats={data?.chats}
-              chatId={chatId}
-              handleDeleteChat={handleDeleteChat}
-              newMessagesAlert={newMessagesAlert}
-            />
-          </Drawer>
+          <ChatList
+            chats={data?.chats}
+            chatId={chatId}
+            handleDeleteChat={handleDeleteChat}
+            newMessagesAlert={newMessagesAlert}
+            onlineUsers={onlineUsers}
+          />
         )}
-        <Grid
-          container
-          height={"calc(100vh - 4rem)"}
-          sx={{ overflowY: "hidden" }}
-        >
-          <Grid
-            item
-            sm={4}
-            md={3}
-            height={"100%"}
-            sx={{
-              display: { xs: "none", sm: "block" },
-              backgroundColor: "#E5E4E2",
-            }}
-          >
-            {isLoading ? (
-              <Skeleton />
-            ) : (
-              <ChatList
-                chats={data?.chats}
-                chatId={chatId}
-                handleDeleteChat={handleDeleteChat}
-                newMessagesAlert={newMessagesAlert}
-                onlineUsers={onlineUsers}
-              />
-            )}
-          </Grid>
-          <Grid item xs={12} sm={8} md={5} lg={6} height={"100%"}>
-            <WrappedComponent {...props} chatId={chatId} user={user} />
-          </Grid>
-          <Grid
-            item
-            md={4}
-            lg={3}
-            sx={{
-              display: { xs: "none", md: "block" },
-              padding: "2rem",
-              backgroundColor: "#D3D3D3",
-            }}
-            height={"calc(100vh - 4rem)"}
-          >
-            <Profile user={user} />
-          </Grid>
-        </Grid>
-      </>
-    );
+      </Grid>
+
+      {/* Main Chat Section - Expanded */}
+      <Grid item xs={12} sm={8} md={9} height={"100%"}>
+        <WrappedComponent {...props} chatId={chatId} user={user} />
+      </Grid>
+    </Grid>
+  </>
+);
   };
 };
 
