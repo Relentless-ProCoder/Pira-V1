@@ -1,6 +1,3 @@
-# **Chatapp - Real-Time Group Chat with File Sharing 🚀**  
-
-Welcome to **Connecto**, a feature-rich real-time chat application built using the **MERN** stack. This project enables seamless communication with real-time messaging, media sharing, and group chat capabilities, ensuring a smooth and interactive user experience.
 
 ## 🛠️ **Tech Stack**  
 
@@ -29,27 +26,6 @@ Welcome to **Connecto**, a feature-rich real-time chat application built using t
 ✅ **Typing Indicators** – Know when someone is typing in real-time.  
 ✅ **Infinite Scrolling in Chat** – Seamless message loading via pagination.  
 ✅ **Admin Dashboard** – Manage users, media, and data visualization with **Chart.js**.  
-
----
-## **Must Watch** 
-
-📽️ Must Watch Video – Check out this video where I explore all features of Connecto in detail! 
-🎬 [Watch Here](https://drive.google.com/file/d/1A1uthmShdK7xpfpU9oGkHbmfmt2tAWkK/view?usp=sharing)  
----
-
-## 🔐 **User Stories**  
-
-### **Admin User Stories**  
-👨‍💼 **Receive Real-Time Notifications** for messages, media uploads, and critical events.  
-📊 **Data Visualization Dashboard** – Analyze user activity with charts.  
-🗂️ **Manage Media Uploads** – Review, approve, or delete images/videos.  
-
-### **Regular User Stories**  
-💬 **Send & Receive Messages** instantly.  
-📷 **Upload & Share Media** with Cloudinary integration.  
-🟢 **See Live User Status** – Know who’s online in real time.  
-⌨️ **Typing Indicators** – See when someone is typing.  
-👥 **Group Chat Support** – Create and manage group conversations.  
 
 ---
 
@@ -101,30 +77,10 @@ Welcome to **Connecto**, a feature-rich real-time chat application built using t
 
 ### **Installation Steps**  
 
-```sh
-# Clone the repository
-https://github.com/ShivamJaviya/chatapp.git
-cd Connecto
 
-# Install dependencies for backend
-cd server
-npm install
-
-# Install dependencies for frontend
-cd ../client
-npm install
-
-# Start backend server
-cd ../server
-npm run dev
-
-# Start frontend server
-cd ../client
-npm start
-```
 
 ---
-
+<!-- 
 ## 🖼 **Application Screenshots**  
 
 ### **Login & Signup Page**  
@@ -142,7 +98,7 @@ npm start
 
 ### **People Request**  
 ![Screenshot (151)](https://github.com/user-attachments/assets/ab76b010-cc9a-4542-ac9e-dbb7eda82dda)
-
+ -->
 
 ---
 
@@ -162,5 +118,4 @@ npm start
 
 ---
 
-## **Acknowledgements**  
-Made with ❤️ by **Shivam Javiya** for **VMukti Solutions**. 🚀  
+
