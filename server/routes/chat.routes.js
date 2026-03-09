@@ -23,8 +23,14 @@ import {
   sendAttachmentsValidator,
   validateHandler,
 } from "../lib/validators.js";
+import { receiveExternalMessage } from "../controllers/chat.controllers.js";
 
 const app = express.Router();
+
+
+// CALLING FROM EXTERNAL SOURCE (JIRA AUTOMATION BACKEND) TO SEND MESSAGE TO A CHAT
+app.post("/external/message", receiveExternalMessage);
+
 
 //After that user must be logged in
 app.use(isAuthenticated);
@@ -63,4 +69,7 @@ app
   .get(chatIdValidator(), validateHandler, getChatDetails)
   .put(renameValidator(), validateHandler, renameGroup)
   .delete(chatIdValidator(), validateHandler, deleteChat);
+
+
+
 export default app;

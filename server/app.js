@@ -11,6 +11,7 @@ import { v2 as cloudinary } from "cloudinary";
 
 import userRoute from "./routes/user.routes.js";
 import chatRoute from "./routes/chat.routes.js";
+
 import adminRoute from "./routes/admin.routes.js";
 import {
   CHAT_JOINED,
@@ -58,6 +59,8 @@ app.use("/api/v1/admin", adminRoute);
 app.get("/", (req, res) => {
   console.log("Hello World");
 });
+
+
 
 io.use((socket, next) => {
   cookieParser()(

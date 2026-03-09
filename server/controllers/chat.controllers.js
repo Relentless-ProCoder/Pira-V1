@@ -15,6 +15,7 @@ import {
 import { getOtherMember } from "../lib/helper.js";
 import { User } from "../models/user.model.js";
 import { Message } from "../models/message.model.js";
+import { getSockets } from "../lib/helper.js";
 
 const newGroupChat = TryCatch(async (req, res, next) => {
   const { name, members } = req.body;
@@ -392,6 +393,59 @@ const getMessages = TryCatch(async (req, res, next) => {
   });
 });
 
+
+const receiveExternalMessage = async (req, res) => {
+  console.log("Received external message:", req.body);
+
+  try {
+    if (req.headers["x-api-key"] !== "mysecretkey") {
+      return res.status(403).json({ message: "Unauthorized" });
+    }
+
+    const { chatId, content } = req.body;
+
+    const chat = await Chat.findById(chatId);
+
+    if (!chat) {
+      return res.status(404).json({ message: "Chat not found" });
+    }
+
+    // 1️⃣ Save to DB properly
+    const messageForDB = await Message.create({
+      content,
+      chat: chatId,
+      sender: chat.creator, // use group creator as system sender
+    });
+
+    // 2️⃣ Prepare realtime message format (like your socket does)
+    const messageForRealTime = {
+      ...messageForDB.toObject(),
+      sender: {
+        _id: chat.creator,
+        name: "Jira Bot",
+      },
+    };
+
+    // 3️⃣ Emit properly using your helper
+    const membersSocket = getSockets(chat.members);
+
+    const io = req.app.get("io");
+
+    io.to(membersSocket).emit(NEW_MESSAGE, {
+      chatId,
+      message: messageForRealTime,
+    });
+
+    io.to(membersSocket).emit(NEW_MESSAGE_ALERT, { chatId });
+
+    return res.status(200).json({ success: true });
+
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: err.message });
+  }
+};
+
 export {
   newGroupChat,
   getMyChat,
@@ -404,4 +458,5 @@ export {
   renameGroup,
   deleteChat,
   getMessages,
+  receiveExternalMessage,
 };
